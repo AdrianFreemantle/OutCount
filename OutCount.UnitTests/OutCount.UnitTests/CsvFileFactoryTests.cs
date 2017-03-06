@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Shouldly;
@@ -9,36 +10,28 @@ namespace OutCount.UnitTests
 {
     [TestClass]
     public class CsvFileTests
-    {        
+    {
+        private const string FileName = "test.csv";
+
         [TestInitialize]
         public void Initialize()
         {
-            
-        }
-
-        [TestCleanup]
-        public void Cleanup()
-        {
-            
+            if (File.Exists(FileName))
+                File.Delete(FileName);
         }
 
         [TestMethod]
-        public void Test()
+        public void Csv_file_can_be_opened_and_parsed()
         {
-            string fileName = "test.csv";
-
-            if (File.Exists(fileName))
-                File.Delete(fileName);
-                      
             try
             {
                 StringBuilder rows = new StringBuilder();
                 rows.AppendLine("Jimmy,Smith,102 Long Lane,29384857");
                 rows.AppendLine("Clive,Owen,65 Ambling Way,31214788");
 
-                File.WriteAllText(fileName, rows.ToString());
+                File.WriteAllText(FileName, rows.ToString());
 
-                CsvFile csvFile = CsvFile.OpenFile(fileName, includeFirstRow: true);
+                CsvFile csvFile = CsvFile.OpenFile(FileName, includeFirstRow: true);
 
                 csvFile[0][0].ShouldBe("Jimmy"); //value at row 1 column 1
                 csvFile[1][0].ShouldBe("Clive"); //value at row 2 column 1
@@ -48,34 +41,88 @@ namespace OutCount.UnitTests
             }
             finally
             {
-                if (File.Exists(fileName))
-                    File.Delete(fileName);
+                if (File.Exists(FileName))
+                    File.Delete(FileName);
+            }
+        }
+
+        [TestMethod]
+        public void Csv_file_can_be_created_opened_and_parsed()
+        {
+            try
+            {
+                var writeCsvFile = new CsvFile
+                {
+                    "Jimmy,Smith,102 Long Lane,29384857",
+                    "Clive,Owen,65 Ambling Way,31214788"
+                };
+
+                writeCsvFile.SaveFile(FileName);
+
+                CsvFile readCsvFile = CsvFile.OpenFile(FileName, includeFirstRow: true);
+
+                readCsvFile[0][0].ShouldBe("Jimmy"); //value at row 1 column 1
+                readCsvFile[1][0].ShouldBe("Clive"); //value at row 2 column 1
+
+                readCsvFile[0][3].ShouldBe("29384857"); //value at row 1 column 4
+                readCsvFile[1][3].ShouldBe("31214788"); //value at row 2 column 4
+            }
+            finally
+            {
+                if (File.Exists(FileName))
+                    File.Delete(FileName);
             }
         }
     }
 
     public class CsvFile : List<CsvFileRow>
     {
+        public CsvFile()
+        {
+        }
+
         protected CsvFile(string filePath, bool includeFirstRow)
         {
             using (StreamReader file = File.OpenText(filePath))
             {
-                int lineCount = 0;
-
-                while (!file.EndOfStream)
-                {
-                    if (includeFirstRow && lineCount++ == 0)
-                        continue;
-
-                    string row = file.ReadLine();
-                    Add(new CsvFileRow(row));
-                }
+                ReadRowsFromFile(includeFirstRow, file);
             }
         }
 
         public static CsvFile OpenFile(string filePath, bool includeFirstRow = false)
         {
             return new CsvFile(filePath, includeFirstRow);
+        }
+
+        private void ReadRowsFromFile(bool includeFirstRow, StreamReader file)
+        {
+            int lineCount = 0;
+
+            while (!file.EndOfStream)
+            {
+                if (includeFirstRow && lineCount++ == 0)
+                    continue;
+
+                string row = file.ReadLine();
+                Add(new CsvFileRow(row));
+            }
+        }
+
+        public void Add(string row)
+        {
+            Add(new CsvFileRow(row));
+        }
+
+        public void SaveFile(string fileName)
+        {
+            StringBuilder rows = new StringBuilder();
+
+            foreach (CsvFileRow row in this)
+            {
+                rows.AppendLine(row.ToString());
+            }
+
+            File.WriteAllText(fileName, rows.ToString());
         }
     }
 
@@ -89,6 +136,11 @@ namespace OutCount.UnitTests
             {
                 Add(index++, columnValue);
             }
+        }
+
+        public override string ToString()
+        {
+            return String.Join(",", Values);
         }
     }
 }
