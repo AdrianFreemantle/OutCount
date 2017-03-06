@@ -1,4 +1,4 @@
-﻿using OutCount.UnitTests.Sut;
+﻿using OutCount.Sut;
 
 namespace OutCount.UnitTests.TestStubs
 {

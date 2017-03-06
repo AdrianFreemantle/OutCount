@@ -1,5 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OutCount.UnitTests.Sut;
+using OutCount.Sut;
 using Shouldly;
 
 namespace OutCount.UnitTests

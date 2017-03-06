@@ -1,6 +1,6 @@
 using System;
 
-namespace OutCount.UnitTests.Sut
+namespace OutCount.Sut
 {
     public struct Address
     {

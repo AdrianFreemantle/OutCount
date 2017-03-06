@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 
-namespace OutCount.UnitTests.Sut
+namespace OutCount.Sut
 {
-    public class PersonDetailParser
+    public class PersonDetailParser : IPersonDetailParser
     {
         const int FirstNameIndex = 0;
         const int LastNameIndex = 1;

@@ -1,4 +1,4 @@
-﻿namespace OutCount.UnitTests.Sut
+﻿namespace OutCount.Sut
 {
     public interface IAddressParser
     {

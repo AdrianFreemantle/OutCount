@@ -1,7 +1,6 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OutCount.UnitTests.Sut;
+using OutCount.Sut;
 using Shouldly;
 
 namespace OutCount.UnitTests
@@ -9,7 +8,6 @@ namespace OutCount.UnitTests
     [TestClass]
     public class ResultsGroupingTests
     {
-        private static PersonDetail[] testData;
         private static NameFrequencySorter nameFrequencySorter;
         private static AddressSorter addressSorter;
 
@@ -18,20 +16,12 @@ namespace OutCount.UnitTests
         {
             nameFrequencySorter = new NameFrequencySorter();
             addressSorter = new AddressSorter();
-
-            testData = new[]
-            {
-                new PersonDetail("Matt", "Brown", "0845140900", new Address(22, "Jones Rd")),
-                new PersonDetail("Heinrich", "Jones", "0845140901", new Address(12, "Acton St")),
-                new PersonDetail("Johnson", "Smith", "0845140902", new Address(31, "Clifton Rd")),
-                new PersonDetail("Tim", "Johnson", "0845140903", new Address(9, "Wilkinson Rd")),
-            };
         }
 
         [TestMethod]
         public void Results_can_be_grouped_by_name_frequency()
         {
-            var namesCount = nameFrequencySorter.Sort(testData).ToArray();
+            var namesCount = nameFrequencySorter.Sort(TestData.PersonDetials).ToArray();
 
             namesCount[0].Name.ShouldBe("Johnson");
             namesCount[0].Count.ShouldBe(2);
@@ -58,7 +48,7 @@ namespace OutCount.UnitTests
         [TestMethod]
         public void Results_can_be_grouped_by_address_frequency()
         {
-            Address[] streets = addressSorter.Sort(testData).ToArray();
+            Address[] streets = addressSorter.Sort(TestData.PersonDetials).ToArray();
 
             streets[0].ToString().ShouldBe("12 Acton St");
             streets[1].ToString().ShouldBe("31 Clifton Rd");

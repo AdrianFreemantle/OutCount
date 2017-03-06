@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace OutCount.UnitTests.Sut
+namespace OutCount.Sut
 {
-    public class NameFrequencySorter
+    public class NameFrequencySorter : INameFrequencySorter
     {
         public ICollection<NameFrequencyDto> Sort(ICollection<PersonDetail> personDetails)
         {
