@@ -10,10 +10,10 @@ namespace OutCount.UnitTests
     [TestClass]
     public class ResultsGroupingTests
     {
-        private PersonDetail[] testData;
+        private static PersonDetail[] testData;
 
-        [TestMethod]
-        public void GroupingTest()
+        [ClassInitialize]
+        public static void Initialize(TestContext testContext)
         {
             testData = new[]
             {
@@ -22,7 +22,11 @@ namespace OutCount.UnitTests
                 new PersonDetail("Johnson", "Smith", "0845140902", new Address(12, "Acton St")),
                 new PersonDetail("Tim", "Johnson", "0845140903", new Address(9, "Wilkinson Rd")),
             };
+        }
 
+        [TestMethod]
+        public void Results_can_be_grouped_by_name_frequency()
+        {
             var names = testData.Select(g => g.FirstName).Concat(testData.Select(g => g.LastName));
 
             var namesCount = names

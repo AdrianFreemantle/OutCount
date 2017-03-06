@@ -10,10 +10,11 @@ namespace OutCount.UnitTests
     {
         const string DataLine = "Jimmy,Smith,102 Long Lane,29384857";
 
-        private readonly AddressParserStub addressParser;
-        private readonly PersonDetailParser parser;
+        private static AddressParserStub addressParser;
+        private static PersonDetailParser parser;
 
-        public PersonDetailParserTests()
+        [ClassInitialize]
+        public static void Initialize(TestContext testContext)
         {
             addressParser = new AddressParserStub();
             parser = new PersonDetailParser(addressParser);
