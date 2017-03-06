@@ -54,6 +54,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="CsvFileFactoryTests.cs" />
     <Compile Include="Sut\AddressSorter.cs" />
     <Compile Include="Sut\NameFrequencyDto.cs" />
     <Compile Include="Sut\NameFrequencySorter.cs" />
