@@ -8,11 +8,10 @@ namespace OutCount.UnitTests
     public class AddressParserTests
     {
         const string AddressText = "102 Long Lane";
-        AddressParser addressParser = new AddressParser();
-
+        private readonly AddressParser addressParser = new AddressParser();
 
         [TestMethod]
-        public void TestMethod1()
+        public void Address_can_be_parsed_from_text_data()
         {
             var address = addressParser.Parse(AddressText);
 
@@ -22,11 +21,17 @@ namespace OutCount.UnitTests
         }
     }
 
-    public class AddressParser
+    public class AddressParser : IAddressParser
     {
         public Address Parse(string rawAddress)
         {
-            return new Address(0, "");
+            var firstSpaceCharacterIndex = rawAddress.IndexOf(" ", StringComparison.Ordinal);
+            var number = rawAddress.Substring(0, firstSpaceCharacterIndex + 1);
+            var street = rawAddress.Substring(firstSpaceCharacterIndex + 1, rawAddress.Length - firstSpaceCharacterIndex - 1);
+
+            var streetNumber = Int32.Parse(number);
+
+            return new Address(streetNumber, street);
         }
     }
 
@@ -38,7 +43,7 @@ namespace OutCount.UnitTests
         public Address(int number, string streetName) : this()
         {
             Number = number;
-            StreetName = streetName;
+            StreetName = streetName ?? String.Empty;
         }
 
         public override string ToString()

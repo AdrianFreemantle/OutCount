@@ -9,11 +9,20 @@ namespace OutCount.UnitTests
     public class PersonDetailParserTests
     {
         const string DataLine = "Jimmy,Smith,102 Long Lane,29384857";
-        readonly PersonDetailParser parser = new PersonDetailParser();
+
+        private readonly AddressParserStub addressParser;
+        private readonly PersonDetailParser parser;
+
+        public PersonDetailParserTests()
+        {
+            addressParser = new AddressParserStub();
+            parser = new PersonDetailParser(addressParser);
+        }
 
         [TestMethod]
         public void Person_details_can_be_parsed_from_a_data_line()
         {
+            addressParser.SetAddressToReturn(new Address(102, "Long Lane"));
             var personDetail = parser.Parse(DataLine);
 
             personDetail.FirstName.ShouldBe("Jimmy");
@@ -23,18 +32,52 @@ namespace OutCount.UnitTests
         }
     }
 
+    public interface IAddressParser
+    {
+        Address Parse(string rawAddress);
+    }
+
+    public class AddressParserStub : IAddressParser
+    {
+        private Address addressToReturn;
+
+        public void SetAddressToReturn(Address address)
+        {
+            addressToReturn = address;
+        }
+
+        public Address Parse(string rawAddress)
+        {
+            return addressToReturn;
+        }
+    }
+
     public class PersonDetailParser
     {
         const int FirstNameIndex = 0;
         const int LastNameIndex = 1;
         const int AddressIndex = 2;
         const int PhoneNumberIndex = 3;
+    
+        private readonly IAddressParser addressParser;
+
+        public PersonDetailParser(IAddressParser addressParser)
+        {
+            this.addressParser = addressParser;
+        }
 
         public PersonDetail Parse(string data)
         {
             var values = data.Split(',').ToArray();
 
-            return new PersonDetail(values[FirstNameIndex], values[LastNameIndex], values[PhoneNumberIndex], values[AddressIndex]);
+            var firstName = values[FirstNameIndex];
+            var lastName = values[LastNameIndex];
+            var phoneNumber = values[PhoneNumberIndex];
+            var addressData = values[AddressIndex];
+
+            var address = addressParser.Parse(addressData);
+
+            return new PersonDetail(firstName, lastName, phoneNumber, address);
         }
     }
 
