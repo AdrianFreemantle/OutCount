@@ -54,6 +54,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="ResultsGroupingTests.cs" />
     <Compile Include="Sut\Address.cs" />
     <Compile Include="Sut\AddressParser.cs" />
     <Compile Include="AddressParserTests.cs" />

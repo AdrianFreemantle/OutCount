@@ -14,5 +14,5 @@ namespace OutCount.UnitTests.Sut
 
             return new Address(streetNumber, street);
         }
-    }
+    } 
 }
