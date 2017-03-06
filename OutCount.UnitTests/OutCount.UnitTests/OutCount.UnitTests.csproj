@@ -54,7 +54,13 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="AddressParser.cs" />
+    <Compile Include="Sut\Address.cs" />
+    <Compile Include="Sut\AddressParser.cs" />
+    <Compile Include="AddressParserTests.cs" />
+    <Compile Include="Sut\IAddressParser.cs" />
+    <Compile Include="Sut\PersonDetail.cs" />
+    <Compile Include="Sut\PersonDetailParser.cs" />
+    <Compile Include="TestStubs\AddressParserStub.cs" />
     <Compile Include="PersonDetailParserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -1,4 +1,6 @@
-﻿namespace OutCount.UnitTests.TestStubs
+﻿using OutCount.UnitTests.Sut;
+
+namespace OutCount.UnitTests.TestStubs
 {
     public class AddressParserStub : IAddressParser
     {
