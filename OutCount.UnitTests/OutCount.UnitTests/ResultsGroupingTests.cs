@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OutCount.UnitTests.Sut;
@@ -11,15 +10,20 @@ namespace OutCount.UnitTests
     public class ResultsGroupingTests
     {
         private static PersonDetail[] testData;
+        private static NameFrequencySorter nameFrequencySorter;
+        private static AddressSorter addressSorter;
 
         [ClassInitialize]
         public static void Initialize(TestContext testContext)
         {
+            nameFrequencySorter = new NameFrequencySorter();
+            addressSorter = new AddressSorter();
+
             testData = new[]
             {
                 new PersonDetail("Matt", "Brown", "0845140900", new Address(22, "Jones Rd")),
                 new PersonDetail("Heinrich", "Jones", "0845140901", new Address(12, "Acton St")),
-                new PersonDetail("Johnson", "Smith", "0845140902", new Address(12, "Acton St")),
+                new PersonDetail("Johnson", "Smith", "0845140902", new Address(31, "Clifton Rd")),
                 new PersonDetail("Tim", "Johnson", "0845140903", new Address(9, "Wilkinson Rd")),
             };
         }
@@ -27,16 +31,7 @@ namespace OutCount.UnitTests
         [TestMethod]
         public void Results_can_be_grouped_by_name_frequency()
         {
-            var names = testData.Select(g => g.FirstName).Concat(testData.Select(g => g.LastName));
-
-            var namesCount = names
-                .GroupBy(s => s)
-                .Select(g => new
-                {
-                    Name = g.Key,
-                    Count = g.Count(s => s == g.Key)
-                }).OrderByDescending(g => g.Count).ThenBy(g => g.Name)
-                .ToArray();
+            var namesCount = nameFrequencySorter.Sort(testData).ToArray();
 
             namesCount[0].Name.ShouldBe("Johnson");
             namesCount[0].Count.ShouldBe(2);
@@ -58,6 +53,17 @@ namespace OutCount.UnitTests
 
             namesCount[6].Name.ShouldBe("Tim");
             namesCount[6].Count.ShouldBe(1);
+        }
+
+        [TestMethod]
+        public void Results_can_be_grouped_by_address_frequency()
+        {
+            Address[] streets = addressSorter.Sort(testData).ToArray();
+
+            streets[0].ToString().ShouldBe("12 Acton St");
+            streets[1].ToString().ShouldBe("31 Clifton Rd");
+            streets[2].ToString().ShouldBe("22 Jones Rd");
+            streets[3].ToString().ShouldBe("9 Wilkinson Rd");
         }
     }
 }

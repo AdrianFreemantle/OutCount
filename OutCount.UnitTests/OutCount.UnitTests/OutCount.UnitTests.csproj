@@ -54,6 +54,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Sut\AddressSorter.cs" />
+    <Compile Include="Sut\NameFrequencyDto.cs" />
+    <Compile Include="Sut\NameFrequencySorter.cs" />
     <Compile Include="ResultsGroupingTests.cs" />
     <Compile Include="Sut\Address.cs" />
     <Compile Include="Sut\AddressParser.cs" />
