@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Shouldly;
 
@@ -24,9 +25,16 @@ namespace OutCount.UnitTests
 
     public class PersonDetailParser
     {
+        const int FirstNameIndex = 0;
+        const int LastNameIndex = 1;
+        const int AddressIndex = 2;
+        const int PhoneNumberIndex = 3;
+
         public PersonDetail Parse(string data)
         {
-            throw new NotImplementedException();
+            var values = data.Split(',').ToArray();
+
+            return new PersonDetail(values[FirstNameIndex], values[LastNameIndex], values[PhoneNumberIndex], values[AddressIndex]);
         }
     }
 
