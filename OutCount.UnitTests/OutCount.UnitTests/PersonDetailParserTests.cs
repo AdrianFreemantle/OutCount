@@ -9,16 +9,16 @@ namespace OutCount.UnitTests
     public class PersonDetailParserTests
     {
         const string DataLine = "Jimmy,Smith,102 Long Lane,29384857";
-        PersonDetailParser parser = new PersonDetailParser();
+        readonly PersonDetailParser parser = new PersonDetailParser();
 
         [TestMethod]
-        public void TestMethod1()
+        public void Person_details_can_be_parsed_from_a_data_line()
         {
             var personDetail = parser.Parse(DataLine);
 
             personDetail.FirstName.ShouldBe("Jimmy");
             personDetail.LastName.ShouldBe("Smith");
-            personDetail.Address.ShouldBe("102 Long Lane");
+            personDetail.Address.ToString().ShouldBe("102 Long Lane");
             personDetail.PhoneNumber.ShouldBe("29384857");
         }
     }
@@ -43,15 +43,15 @@ namespace OutCount.UnitTests
         public string FirstName { get; private set; }
         public string LastName { get; private set; }
         public string PhoneNumber { get; private set; }
-        public string Address { get; private set; }
+        public Address Address { get; private set; }
 
-        public PersonDetail(string firstName, string lastName, string phoneNumber, string address)
+        public PersonDetail(string firstName, string lastName, string phoneNumber, Address address)
             : this()
         {
             FirstName = firstName ?? String.Empty;
             LastName = lastName ?? String.Empty;
             PhoneNumber = phoneNumber ?? String.Empty;
-            Address = address ?? String.Empty;
+            Address = address;
         }
     }
 }
