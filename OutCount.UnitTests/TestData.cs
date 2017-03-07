@@ -1,4 +1,4 @@
-﻿using OutCount.Sut;
+﻿using OutCount.DataObjects;
 
 namespace OutCount.UnitTests
 {
@@ -10,6 +10,18 @@ namespace OutCount.UnitTests
             new PersonDetail("Heinrich", "Jones", "0845140901", new Address(12, "Acton St")),
             new PersonDetail("Johnson", "Smith", "0845140902", new Address(31, "Clifton Rd")),
             new PersonDetail("Tim", "Johnson", "0845140903", new Address(9, "Wilkinson Rd")),
+        };
+
+        public static readonly NameFrequencyDto[] NameFrequecies =
+        {
+            new NameFrequencyDto {Count = 2, Name = "Adrian"},
+            new NameFrequencyDto {Count = 1, Name = "Freemantle"},
+        };
+
+        public static readonly Address[] Addresses =
+        {
+            new Address(32, "Peter Road"),
+            new Address(99, "Jones Road"),
         };
     }
 }

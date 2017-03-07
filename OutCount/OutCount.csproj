@@ -1,20 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CCE9B148-A344-4C54-AB6E-A87F8A6FD78E}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{0CA3750D-23C5-451D-9085-7C1B564AF6EE}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>OutCount</RootNamespace>
     <AssemblyName>OutCount</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -39,36 +36,28 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Logo.cs" />
-    <Compile Include="PersonDetailsFileParser.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="DataObjects\Address.cs" />
+    <Compile Include="DataObjects\NameFrequencyDto.cs" />
+    <Compile Include="DataObjects\PersonDetail.cs" />
+    <Compile Include="DataSorters\AddressSorter.cs" />
+    <Compile Include="DataSorters\NameFrequencySorter.cs" />
+    <Compile Include="FileProcessing\CsvFile.cs" />
+    <Compile Include="FileProcessing\CsvFileRow.cs" />
+    <Compile Include="IAddressParser.cs" />
+    <Compile Include="IAddressSorter.cs" />
+    <Compile Include="INameFrequencySorter.cs" />
+    <Compile Include="IPersonDetailParser.cs" />
+    <Compile Include="OutputFileFactories\SortedAddressCsvFileFactory.cs" />
+    <Compile Include="OutputFileFactories\SortedNamesCsvFileFactory.cs" />
+    <Compile Include="Parsers\AddressParser.cs" />
+    <Compile Include="Parsers\PersonDetailParser.cs" />
+    <Compile Include="Parsers\PersonDetailsFileParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SortedAddressCsvFileFactory.cs" />
-    <Compile Include="SortedNamesCsvFileFactory.cs" />
-    <Compile Include="Application\Address.cs" />
-    <Compile Include="Application\AddressParser.cs" />
-    <Compile Include="Application\AddressSorter.cs" />
-    <Compile Include="Application\CsvFile.cs" />
-    <Compile Include="Application\CsvFileRow.cs" />
-    <Compile Include="Application\IAddressParser.cs" />
-    <Compile Include="Application\IAddressSorter.cs" />
-    <Compile Include="Application\INameFrequencySorter.cs" />
-    <Compile Include="Application\IPersonDetailParser.cs" />
-    <Compile Include="Application\NameFrequencyDto.cs" />
-    <Compile Include="Application\NameFrequencySorter.cs" />
-    <Compile Include="Application\PersonDetail.cs" />
-    <Compile Include="Application\PersonDetailParser.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="Data\data.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

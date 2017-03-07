@@ -1,11 +1,20 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OutCount.UnitTests", "OutCount.UnitTests\OutCount.UnitTests.csproj", "{638448F3-D227-4DF6-9070-B499494119C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OutCount", "OutCount\OutCount.csproj", "{CCE9B148-A344-4C54-AB6E-A87F8A6FD78E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OutCount.ConsoleApp", "OutCount.ConsoleApp\OutCount.ConsoleApp.csproj", "{CCE9B148-A344-4C54-AB6E-A87F8A6FD78E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OutCount", "OutCount\OutCount.csproj", "{0CA3750D-23C5-451D-9085-7C1B564AF6EE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{AF185FA9-6C56-4D53-B3B4-1214437C3834}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +30,10 @@ Global
 		{CCE9B148-A344-4C54-AB6E-A87F8A6FD78E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CCE9B148-A344-4C54-AB6E-A87F8A6FD78E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CCE9B148-A344-4C54-AB6E-A87F8A6FD78E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0CA3750D-23C5-451D-9085-7C1B564AF6EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CA3750D-23C5-451D-9085-7C1B564AF6EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CA3750D-23C5-451D-9085-7C1B564AF6EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CA3750D-23C5-451D-9085-7C1B564AF6EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
